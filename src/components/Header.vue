@@ -22,7 +22,7 @@ import User from "@/user.js"
    methods: {
       logIn() {
           if(database.User.length == 0) {
-            database.User.push(new User(true));
+            database.User.push(new User());
             this.msg = "Sign Out";
             this.createPost = '<a href="#">Create Post</a>';
             this.contactRequests = '<a href="#">Contact Requests</a>';
