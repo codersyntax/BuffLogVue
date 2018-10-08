@@ -6,7 +6,7 @@
                 <h2 class="blog-title">{{ blogPost.title }}</h2>
                 <div class="blog-info">
                 <span>Created: {{ blogPost.dateCreated }} |  By: {{ blogPost.author }}</span>&nbsp;&nbsp;&nbsp;
-                <span class="post-changes" v-if="database.User.length != 0">
+                <span class="post-changes" v-if="database.User.length > 0">
                     <span class="edit-post"><router-link :to="'/edit:' + blogPost.id">Edit Post</router-link></span>&nbsp;&nbsp;&nbsp;
                     <span class="delete-post" v-on:click="database.Posts.splice(index, 1)">Delete Post</span>
                 </span>
@@ -15,9 +15,13 @@
                 <div class="comments">
                     <h3 v-if="blogPost.comments.length > 0">Comments</h3>
                     <ul>
-                        <li v-for="blogComment in blogPost.comments" v-bind:key="blogComment.id">
+                        <li v-for="(blogComment, index) in blogPost.comments" v-bind:index="index" v-bind:key="blogComment.id">
                             <h4>{{ blogComment.name }} said:</h4>
                             <p style="text-indent: 2em">{{ blogComment.message }}</p>
+                            <span v-if="database.User.length > 0" class="comment-delete">
+                                User email: {{ blogComment.email }}<br/>
+                                <span v-on:click="blogPost.comments.splice(index, 1)">Delete Comment</span>
+                            </span>
                         </li>
                     </ul>
                     <h3>Leave a comment?</h3>
