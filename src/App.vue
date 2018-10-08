@@ -199,15 +199,15 @@ export default {
 .view-more {
     float:right;
     border: none;
-    color: white;
+    color: #333;
     padding: 8px 16px;
     text-align: center;
     margin: 4px 2px;
+    font-size: 12px;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
     cursor: pointer;
     text-decoration: none;
-    text-transform: uppercase;
 }
 
 .view-more:hover {
