@@ -135,6 +135,7 @@ export default {
 
 #footer {
     background-image: linear-gradient(rgba(244, 244, 244, 1), rgba(255,255,255,1));
+    margin-top: 40px;
     padding: 25px 25px 100px 25px;
 }
 
@@ -213,26 +214,5 @@ export default {
 .view-more:hover {
     background-color: #008CBA;
     color: white;
-}
-
-.search {
-    padding: 25px 25px 50px 25px;
-    background-color:rgba(244, 244, 244, 1);
-    background-image: linear-gradient(rgba(244, 244, 244, 1), rgba(255,255,255,1));
-}
-
-.search p {
-    text-align: center;
-}
-
-.search input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    resize: vertical;
 }
 </style>

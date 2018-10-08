@@ -1,7 +1,7 @@
 <template>
     <div class="blog-feed">
         <a @click="$router.go(-1)">Go back</a>
-        <div class="blog-post" v-for="(blogPost, index) in database.Posts" v-bind:item="blogPost" v-bind:index="index" v-bind:key="blogPost.id">
+        <span class="blog-post" v-for="(blogPost, index) in database.Posts" v-bind:item="blogPost" v-bind:index="index" v-bind:key="blogPost.id">
             <div v-if="blogPost.id == blogRouterId" class="content">
                 <h2 class="blog-title">{{ blogPost.title }}</h2>
                 <div class="blog-info">
@@ -40,7 +40,7 @@
                         </p>
                 </div>
             </div>
-        </div>
+        </span>
     </div>
 </template>
 
