@@ -1,15 +1,16 @@
 <template>
     <div class="blog-feed">
-        <div class="blog-post" v-for="(blogPost, index) in database.Posts" v-bind:item="blogPost" v-bind:index="index" v-bind:key="blogPost.id">
-            <div class="blog-title">{{ blogPost.title }}</div>
+        <div class="blog-post" v-for="(blogPost, index) in sortedByDatePosts" v-bind:item="blogPost" v-bind:index="index" v-bind:key="blogPost.id">
+            <h2 class="blog-title">{{ blogPost.title }}</h2>
             <!-- Add routing to make edit post take user to edit component -->
-            <div class="post-changes" v-if="database.User.length != 0">
-                <span class="edit-post"><router-link :to="'/edit:' + blogPost.id">Edit Post</router-link></span>
-                <span class="delete-post" v-on:click="database.Posts.splice(index, 1)">Delete Post</span>
+            <div class="blog-info">
+              <span>Created: {{ blogPost.dateCreated }} |  By: {{ blogPost.author }}</span>&nbsp;&nbsp;&nbsp;
+              <span class="post-changes" v-if="database.User.length != 0">
+                  <span class="edit-post"><router-link :to="'/edit:' + blogPost.id">Edit Post</router-link></span>&nbsp;&nbsp;&nbsp;
+                  <span class="delete-post" v-on:click="database.Posts.splice(index, 1)">Delete Post</span>
+              </span>
             </div>
-            <div class="blog-date-created">{{ blogPost.dateCreated }}</div>
-            <div class="blog-author">{{ blogPost.author }}</div>
-            <div class="blog-body">{{ blogPost.body.substring(0,500)+"..." }}</div>
+            <p class="blog-body">{{ blogPost.body.substring(0,500)+"..." }}</p>
         </div>
     </div>
 </template>
@@ -23,6 +24,19 @@
     data () {
       return {
         database: database
+      }
+    },
+    computed: {
+      sortedByDatePosts: function() {
+        return this.database.Posts.sort(function(a, b) {
+          if(a.dateCreated > b.dateCreated) {
+            return -1;
+          }
+          if (a.dateCreated < b.dateCreated) {
+            return 1;
+          }
+          return 0;
+        })
       }
     }
   }

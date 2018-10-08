@@ -1,8 +1,8 @@
 <template>
    <div id="header">
-      <span v-html="createPost" id="create-post-link"></span>
-      <span v-html="contactRequests" id="contact-requests-link"></span>
-      <input type="button" id="log-button" v-model="msg" @click="logIn()" />
+      <input type="button" id="log-button" v-model="msg" @click="logIn()" />&nbsp;&nbsp;&nbsp;
+      <router-link v-if="database.User.length != 0" to="/create">Create Post</router-link>&nbsp;&nbsp;&nbsp;
+      <router-link v-if="database.User.length != 0" to="/contact-requests">Contact Requests</router-link>
   </div>
 </template>
 
@@ -14,9 +14,7 @@ import User from "@/user.js"
    data() {
          return {
             database : database,
-            msg: "Log In",
-            createPost: '',
-            contactRequests: ''
+            msg: "Log In"
          };
       },
    methods: {
@@ -24,13 +22,9 @@ import User from "@/user.js"
           if(database.User.length == 0) {
             database.User.push(new User());
             this.msg = "Sign Out";
-            this.createPost = '<a href="#">Create Post</a>';
-            this.contactRequests = '<a href="#">Contact Requests</a>';
           } else {
             database.User.pop();
             this.msg = "Log In";
-            this.createPost = '';
-            this.contactRequests = '';
           }
       }
    }
