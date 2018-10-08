@@ -1,7 +1,7 @@
 <template>
     <div class="blog-feed">
         <div class="blog-post" v-for="(blogPost, index) in sortedByDatePosts" v-bind:item="blogPost" v-bind:index="index" v-bind:key="blogPost.id">
-            <h2 class="blog-title">{{ blogPost.title }}</h2>
+            <router-link :to="'/view:' + blogPost.id"><h2 class="blog-title">{{ blogPost.title }}</h2></router-link>
             <!-- Add routing to make edit post take user to edit component -->
             <div class="blog-info">
               <span>Created: {{ blogPost.dateCreated }} |  By: {{ blogPost.author }}</span>&nbsp;&nbsp;&nbsp;
@@ -11,6 +11,7 @@
               </span>
             </div>
             <p class="blog-body">{{ blogPost.body.substring(0,500)+"..." }}</p>
+            <router-link :to="'/view:' + blogPost.id">View Post</router-link>
         </div>
     </div>
 </template>

@@ -1,5 +1,7 @@
 <template>
-    <div class="create-post">
+    <div class="edit-post">
+        <a @click="$router.go(-1)" class="go-back">Go back</a>
+        <h2 class="title">Create New Post</h2>
         <p>
             <input type="text" v-model="title" id="title" name="title" placeholder="Post title">
         </p>

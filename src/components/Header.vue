@@ -1,9 +1,9 @@
 <template>
    <div id="header">
-      <input type="button" id="log-button" v-model="msg" @click="logIn()" />&nbsp;&nbsp;&nbsp;
-      <router-link v-if="database.User.length != 0" to="/create">Create Post</router-link>&nbsp;&nbsp;&nbsp;
-      <router-link v-if="database.User.length != 0" to="/contact-requests">Contact Requests</router-link>
-  </div>
+     <router-link v-if="database.User.length != 0" to="/create">Create Post</router-link>&nbsp;&nbsp;&nbsp;
+      <router-link v-if="database.User.length != 0" to="/contact-requests">Contact Requests</router-link>&nbsp;&nbsp;&nbsp;
+      <input type="button" id="log-button" v-model="msg" @click="logIn()" />
+    </div>
 </template>
 
 <script>
