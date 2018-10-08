@@ -4,7 +4,6 @@
             <div v-if="blogPost.id == blogRouterId" class="content">
                 <a @click="$router.go(-1)">Go back</a>
                 <h2 class="blog-title">{{ blogPost.title }}</h2>
-                <!-- Add routing to make edit post take user to edit component -->
                 <div class="blog-info">
                 <span>Created: {{ blogPost.dateCreated }} |  By: {{ blogPost.author }}</span>&nbsp;&nbsp;&nbsp;
                 <span class="post-changes" v-if="database.User.length != 0">
@@ -16,7 +15,7 @@
                 <div class="comments">
                     <h3 v-if="blogPost.comments.length > 0">Comments</h3>
                     <ul>
-                        <li v-for="blogComment in blogPost.comments" v-bind:key="blogComment">
+                        <li v-for="blogComment in blogPost.comments" v-bind:key="blogComment.id">
                             <h4>{{ blogComment.name }} said:</h4>
                             <p style="text-indent: 2em">{{ blogComment.message }}</p>
                         </li>
@@ -59,7 +58,9 @@
     },
     methods: {
         createPostComment(index) {
-            database.Posts[index].comments.push(new PostComment(this.name, this.email, this.comment));
+            var lastIndex = database.Posts[index].comments[database.Posts[index].comments.length - 1].id;
+            lastIndex++;
+            database.Posts[index].comments.push(new PostComment(lastIndex, this.name, this.email, this.comment));
             this.name = '';
             this.email = '';
             this.comment = '';
