@@ -32,7 +32,9 @@ import ContactRequest from "@/contactRequest.js"
     },
     methods: {
         createContactRequest() {
-            database.ContactRequests.push(new ContactRequest(this.name, this.email, this.message));
+            var lastIndex = database.ContactRequests[database.ContactRequests.length - 1].id;
+            lastIndex++;
+            database.ContactRequests.push(new ContactRequest(lastIndex, this.name, this.email, this.message));
             this.name = '';
             this.email = '';
             this.message = '';

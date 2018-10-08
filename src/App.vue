@@ -127,6 +127,12 @@ export default {
     text-align:right;
 }
 
+.contact-request-delete {
+    font-size: 0.8em;
+    float:right;
+    text-align:right;
+}
+
 #footer {
     background-image: linear-gradient(rgba(244, 244, 244, 1), rgba(255,255,255,1));
     padding: 25px 25px 100px 25px;
@@ -149,6 +155,11 @@ export default {
     margin-top: 6px;
     margin-bottom: 16px;
     resize: vertical;
+}
+
+.contact-request {
+    position: relative;
+    padding: 25px;
 }
 
 .blog-post {

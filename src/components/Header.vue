@@ -2,7 +2,8 @@
    <div id="header">
      <router-link v-if="database.User.length != 0" to="/create">Create Post</router-link>&nbsp;&nbsp;&nbsp;
       <router-link v-if="database.User.length != 0" to="/contact-requests">Contact Requests</router-link>&nbsp;&nbsp;&nbsp;
-      <input type="button" id="log-button" v-model="msg" @click="logIn()" />
+      <span v-if="database.User.length == 0"><input type="button" id="log-button" value="Log In" @click="signUserIn()" /></span>
+      <span v-else><router-link to="/"><input type="button" id="log-button" value="Sign Out" @click="signUserOut()" /></router-link></span>
     </div>
 </template>
 
@@ -13,19 +14,15 @@ import User from "@/user.js"
    export default {
    data() {
          return {
-            database : database,
-            msg: "Log In"
+            database : database
          };
       },
    methods: {
-      logIn() {
-          if(database.User.length == 0) {
-            database.User.push(new User());
-            this.msg = "Sign Out";
-          } else {
-            database.User.pop();
-            this.msg = "Log In";
-          }
+           signUserIn() {
+        database.User.push(new User());
+      },
+      signUserOut() {
+        database.User.pop();
       }
    }
   }
