@@ -1,19 +1,24 @@
 <template>
     <div class="edit-post">
-        <a @click="$router.go(-1)" class="go-back">Go back</a>
-        <h2 class="title">Create New Post</h2>
-        <p>
-            <input type="text" v-model="title" id="title" name="title" placeholder="Post title">
-        </p>
-        <p>
-            <input type="text" v-model="author" id="author" name="author" placeholder="Author name">
-        </p>
-        <p>
-            <textarea v-model="body" id="post-content" name="content" placeholder="Write something.."></textarea>
-        </p>
-        <p>
-            <router-link to="/"><input type="submit" value="Submit Post" class="edit-post-button" @click="createPost()"></router-link>
-        </p>
+        <div v-if="database.User.length > 0">
+            <a @click="$router.go(-1)" class="go-back">Go back</a>
+            <h2 class="title">Create New Post</h2>
+            <p>
+                <input type="text" v-model="title" id="title" name="title" placeholder="Post title">
+            </p>
+            <p>
+                <input type="text" v-model="author" id="author" name="author" placeholder="Author name">
+            </p>
+            <p>
+                <textarea v-model="body" id="post-content" name="content" placeholder="Write something.."></textarea>
+            </p>
+            <p>
+                <router-link to="/"><input type="submit" value="Submit Post" class="edit-post-button" @click="createPost()"></router-link>
+            </p>
+        </div>
+        <div v-else>
+            <h2 class="title">Please log in to make changes</h2>
+        </div>
     </div>
 </template>
 

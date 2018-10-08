@@ -15,7 +15,7 @@ const routes = [
   { path: '/', component: Home },
   { path: '/view:id', component: View },
   { path: '/edit:id', component: Edit },
-  { path: '/:tag', component: Tag },
+  { path: '/tag:tag', component: Tag },
   { path: '/create', component: Create },
   { path: '/contact-requests', component: ContactRequests }
 ];

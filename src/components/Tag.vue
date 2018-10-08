@@ -1,5 +1,6 @@
 <template>
     <div class="blog-feed">
+        <a @click="$router.go(-1)">Go back</a>
         <div class="blog-post" v-for="(blogPost, index) in sortedByDatePosts" v-bind:item="blogPost" v-bind:index="index" v-bind:key="blogPost.id">
             <div v-if="hasTag(blogPost.tags)">
                 <router-link :to="'/view:' + blogPost.id"><h2 class="blog-title">{{ blogPost.title }}</h2></router-link>

@@ -12,7 +12,7 @@
                         <input type="text" v-model="blogPost.author" id="author" name="author" placeholder="Author name">
                     </p>
                     <p>
-                        <textarea v-model="blogPost.body" id="post-content" name="content" placeholder="Write something.."></textarea>
+                        <textarea v-model="blogPost.body" id="post-content" name="content" placeholder="Write something.." style="height:200px"></textarea>
                     </p>
                     <p>
                         <router-link to="/"><input type="submit" value="Submit Changes" class="edit-post-button"></router-link>
