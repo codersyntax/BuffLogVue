@@ -5,6 +5,7 @@ import Home from './components/Home.vue'
 import Edit from './components/Edit.vue'
 import Create from './components/Create.vue'
 import View from './components/View.vue'
+import ContactRequests from './components/ContactRequests.vue'
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false
@@ -13,7 +14,8 @@ const routes = [
   { path: '/', component: Home },
   { path: '/view:id', component: View },
   { path: '/edit:id', component: Edit },
-  { path: '/create', component: Create }
+  { path: '/create', component: Create },
+  { path: '/contact-requests', component: ContactRequests }
 ];
 
 const router = new VueRouter({

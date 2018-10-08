@@ -13,6 +13,29 @@
                 </span>
                 </div>
                 <p class="blog-body">{{ blogPost.body }}</p>
+                <div class="comments">
+                    <h3 v-if="blogPost.comments.length > 0">Comments</h3>
+                    <ul>
+                        <li v-for="blogComment in blogPost.comments" v-bind:key="blogComment">
+                            <h4>{{ blogComment.name }} said:</h4>
+                            <p style="text-indent: 2em">{{ blogComment.message }}</p>
+                        </li>
+                    </ul>
+                    <h3>Leave a comment?</h3>
+                        <p>
+                            <label for="name">Name</label>
+                            <input type="text" v-model="name" id="name" name="name" placeholder="Your name..">
+                            <label for="email">Email</label>
+                            <input type="text" v-model="email" id="email" name="email" placeholder="Your email address..">
+                        </p>
+                        <p>
+                            <label for="comment">Comment</label>
+                            <textarea id="comment" v-model="comment" name="comment" placeholder="Write your comment..." style="height:200px"></textarea>
+                        </p>
+                        <p>
+                            <input type="submit" value="Submit" class="view-more" id="contact-form-submit" @click="createPostComment(index)" />
+                        </p>
+                </div>
             </div>
         </div>
     </div>
@@ -21,14 +44,26 @@
 
 <script>
   import database from "@/database.js"
+  import PostComment from "@/comment"
 
   export default {
 
     data () {
       return {
         database: database,
-        blogRouterId : this.$route.params.id.substr(1)
+        blogRouterId : this.$route.params.id.substr(1),
+        name: '',
+        email: '',
+        comment: ''
       }
+    },
+    methods: {
+        createPostComment(index) {
+            database.Posts[index].comments.push(new PostComment(this.name, this.email, this.comment));
+            this.name = '';
+            this.email = '';
+            this.comment = '';
+        }
     }
 }
 </script>

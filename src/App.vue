@@ -98,17 +98,27 @@ export default {
     color: white;
 }
 
-#comments {
-    background-image: linear-gradient(rgba(244, 244, 244, 1), rgba(255,255,255,1));
-    padding: 25px 25px 100px 25px;
+.comments {
+    padding: 25px 25px 50px 25px;
 }
 
-#comments h2 {
+.comments h3 {
     color: #999;
 }
 
-#comments ul {
+.comments ul {
     list-style-type: none;
+}
+
+.comments input,textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
 }
 
 #footer {
@@ -137,8 +147,7 @@ export default {
 
 .blog-post {
     position: relative;
-    padding: 25px 25px 60px 25px;
-    margin-bottom: 25px;
+    padding: 25px;
 }
 
 .blog-title h2,a {
