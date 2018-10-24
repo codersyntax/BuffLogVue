@@ -42,7 +42,7 @@
             var lastIndex = database.Posts[database.Posts.length - 1].id;
             lastIndex++;
             var now = new Date().toLocaleString();
-            database.Posts.push(new BlogPost(lastIndex, this.title, this.author, now, this.body));
+            database.Posts.push(new BlogPost(lastIndex, this.title, this.author, now, this.body, []));
         }
     }
 }

@@ -35,7 +35,7 @@
     data () {
       return {
         database: database,
-        blogRouterId : this.$route.params.id.substr(1)
+        blogRouterId : this.$route.params.id
       }
     }
 }

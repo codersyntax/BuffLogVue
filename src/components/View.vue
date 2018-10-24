@@ -7,7 +7,7 @@
                 <div class="blog-info">
                 <span>Created: {{ blogPost.dateCreated }} |  By: {{ blogPost.author }}</span>&nbsp;&nbsp;&nbsp;
                 <span class="post-changes" v-if="database.User.length > 0">
-                    <span class="edit-post"><router-link :to="'/edit:' + blogPost.id">Edit Post</router-link></span>&nbsp;&nbsp;&nbsp;
+                    <span class="edit-post"><router-link :to="'/posts/' + blogPost.id + '/edit'">Edit Post</router-link></span>&nbsp;&nbsp;&nbsp;
                     <span class="delete-post" v-on:click="database.Posts.splice(index, 1)">Delete Post</span>
                 </span>
                 </div>
@@ -54,7 +54,7 @@
     data () {
       return {
         database: database,
-        blogRouterId : this.$route.params.id.substr(1),
+        blogRouterId : this.$route.params.id,
         name: '',
         email: '',
         comment: ''

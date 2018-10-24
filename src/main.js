@@ -6,17 +6,15 @@ import Edit from './components/Edit.vue'
 import Create from './components/Create.vue'
 import View from './components/View.vue'
 import ContactRequests from './components/ContactRequests.vue'
-import Tag from './components/Tag.vue'
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/view:id', component: View },
-  { path: '/edit:id', component: Edit },
-  { path: '/tag:tag', component: Tag },
-  { path: '/create', component: Create },
+  { path: '/posts/create', component: Create },
+  { path: '/posts/:id', component: View },
+  { path: '/posts/:id/edit', component: Edit },
   { path: '/contact-requests', component: ContactRequests }
 ];
 
