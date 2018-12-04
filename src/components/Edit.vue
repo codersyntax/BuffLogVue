@@ -1,9 +1,9 @@
 <template>
     <div class="edit-post">
         <a @click="$router.go(-1)" class="go-back">Go back</a>
-        <div v-if="database.User.length > 0">
-            <div class="blog-post" v-for="(blogPost, index) in database.Posts" v-bind:item="blogPost" v-bind:index="index" v-bind:key="blogPost.id">
-                <div v-if="blogPost.id == blogRouterId" class="content">
+        <div v-if="Users.length > 0">
+            <div class="blog-post" v-for="(blogPost, index) in blogPost" v-bind:item="blogPost" v-bind:index="index" v-bind:key="blogPost.id">
+                <div v-if="blogPost.id == $route.params.id" class="content">
                     <h2 class="title">Edit {{ blogPost.title }}</h2>
                     <p>
                         <input type="text" v-model="blogPost.title" id="title" name="title" placeholder="Post title">
@@ -28,15 +28,33 @@
 
 
 <script>
-  import database from "@/database.js"
+  import UserDatabase from "@/user_database.js"
+  import Axios from "../../node_modules/axios";
 
   export default {
 
     data () {
       return {
-        database: database,
-        blogRouterId : this.$route.params.id
+        Users: UserDatabase.Users,
+        blogPost: null
       }
+    },
+    created() {
+      Axios.get('http://localhost:3000/api/posts/', {
+          params: {
+              ID: this.$route.params.id
+          }
+      }).then(res => this.blogPost = res.data);
+    },
+    methods: {
+        submitPostChanges() {
+            Axios.put('http://localhost:3000/api/posts/' + this.$route.params.id, this.blogPost).then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(err);
+            });
+        }
     }
 }
 </script>

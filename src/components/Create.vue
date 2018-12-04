@@ -1,6 +1,6 @@
 <template>
     <div class="edit-post">
-        <div v-if="database.User.length > 0">
+        <div v-if="Users.length > 0">
             <a @click="$router.go(-1)" class="go-back">Go back</a>
             <h2 class="title">Create New Post</h2>
             <p>
@@ -24,25 +24,41 @@
 
 
 <script>
-  import database from "@/database.js"
-  import BlogPost from "@/blogPost.js"
+  import UserDatabase from "@/user_database.js"
+  import Axios from "../../node_modules/axios";
 
   export default {
 
     data () {
       return {
-        database: database,
+        blogPosts: null,
+        Users: UserDatabase.Users,
         author: '',
         body: '',
         title: ''
       }
     },
+    created() {
+      Axios.get('http://localhost:3000/api/posts').then(res => this.blogPosts = res.data.reverse())
+    },
+    updated() {
+      Axios.get('http://localhost:3000/api/posts').then(res => this.blogPosts = res.data.reverse())
+    },
     methods: {
         createPost() {
-            var lastIndex = database.Posts[database.Posts.length - 1].id;
-            lastIndex++;
-            var now = new Date().toLocaleString();
-            database.Posts.push(new BlogPost(lastIndex, this.title, this.author, now, this.body, []));
+            var post = {
+                "id" : ++this.blogPosts[this.blogPosts.length - 1].id,
+                "title" : this.title,
+                "author" : this.author,
+                "dateCreated" : new Date().toLocaleString(),
+                "body" : this.body,
+                "comments" : []
+            };
+            Axios.post('http://localhost:3000/api/posts', post);
+            //var lastIndex = database.Posts[database.Posts.length - 1].id;
+            //lastIndex++;
+            //var now = new Date().toLocaleString();
+            //database.Posts.push(new BlogPost(lastIndex, this.title, this.author, now, this.body, []));
         }
     }
 }

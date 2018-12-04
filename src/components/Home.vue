@@ -1,13 +1,13 @@
 <template>
     <div class="blog-feed">
-        <div class="blog-post" v-for="(blogPost, index) in sortedByDatePosts" v-bind:item="blogPost" v-bind:index="index" v-bind:key="blogPost.id">
+        <div class="blog-post" v-for="(blogPost, index) in blogPosts" v-bind:item="blogPost" v-bind:index="index" v-bind:key="blogPost.id">
             <router-link :to="'/posts/' + blogPost.id"><h2 class="blog-title">{{ blogPost.title }}</h2></router-link>
             <!-- Add routing to make edit post take user to edit component -->
             <div class="blog-info">
               <span>Created: {{ blogPost.dateCreated }} |  By: {{ blogPost.author }}  | Comments: {{ blogPost.comments.length }}</span>&nbsp;&nbsp;&nbsp;
-              <span class="post-changes" v-if="database.User.length != 0">
+              <span class="post-changes" v-if="Users.length != 0">
                   <span class="edit-post"><router-link :to="'/posts/' + blogPost.id + '/edit'">Edit Post</router-link></span>&nbsp;&nbsp;&nbsp;
-                  <span class="delete-post" v-on:click="database.Posts.splice(index, 1)">Delete Post</span>
+                  <span class="delete-post" v-on:click="deletePost(blogPost.id)">Delete Post</span>
               </span>
             </div>
             <p class="blog-body">{{ blogPost.body.substring(0,500)+"..." }}</p>
@@ -18,26 +18,30 @@
 
 
 <script>
-  import database from "@/database.js"
+  import Axios from "../../node_modules/axios";
+  import UserDatabase from "../user_database.js"
 
   export default {
 
     data () {
       return {
-        database: database
+        blogPosts: null,
+        Users: UserDatabase.Users
       }
     },
-    computed: {
-      sortedByDatePosts: function() {
-        return this.database.Posts.sort(function(a, b) {
-          if(a.dateCreated > b.dateCreated) {
-            return -1;
+    created() {
+      Axios.get('http://localhost:3000/api/posts').then(res => this.blogPosts = res.data.reverse())
+    },
+    updated() {
+      Axios.get('http://localhost:3000/api/posts').then(res => this.blogPosts = res.data.reverse())
+    },
+    methods: {
+      deletePost(postId) {
+        Axios.delete('http://localhost:3000/api/posts/', {
+          params: {
+            ID: postId
           }
-          if (a.dateCreated < b.dateCreated) {
-            return 1;
-          }
-          return 0;
-        })
+        });
       }
     }
   }

@@ -18,27 +18,27 @@
 </template>
 
 <script>
-import database from "@/database.js"
-import ContactRequest from "@/contactRequest.js"
+import UserDatabase from "@/user_database.js"
 
    export default {
    data() {
         return {
-            database : database,
+            Users: UserDatabase.Users,
+            //database : database,
             name: '',
             email: '',
             message: ''
         };
     },
     methods: {
-        createContactRequest() {
-            var lastIndex = database.ContactRequests[database.ContactRequests.length - 1].id;
-            lastIndex++;
-            database.ContactRequests.push(new ContactRequest(lastIndex, this.name, this.email, this.message));
-            this.name = '';
-            this.email = '';
-            this.message = '';
-        }
+        //createContactRequest() {
+        //    var lastIndex = database.ContactRequests[database.ContactRequests.length - 1].id;
+        //    lastIndex++;
+        //    database.ContactRequests.push(new ContactRequest(lastIndex, this.name, this.email, this.message));
+        //    this.name = '';
+        //    this.email = '';
+        //    this.message = '';
+        //}
     }
   }
 </script>

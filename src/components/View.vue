@@ -1,14 +1,14 @@
 <template>
     <div class="blog-feed">
         <a @click="$router.go(-1)">Go back</a>
-        <span class="blog-post" v-for="(blogPost, index) in database.Posts" v-bind:item="blogPost" v-bind:index="index" v-bind:key="blogPost.id">
-            <div v-if="blogPost.id == blogRouterId" class="content">
+        <span class="blog-post" v-for="(blogPost, index) in blogPost" v-bind:item="blogPost" v-bind:index="index" v-bind:key="blogPost.id">
+            <div v-if="blogPost.id == $route.params.id" class="content">
                 <h2 class="blog-title">{{ blogPost.title }}</h2>
                 <div class="blog-info">
                 <span>Created: {{ blogPost.dateCreated }} |  By: {{ blogPost.author }}</span>&nbsp;&nbsp;&nbsp;
-                <span class="post-changes" v-if="database.User.length > 0">
+                <span class="post-changes" v-if="Users.length > 0">
                     <span class="edit-post"><router-link :to="'/posts/' + blogPost.id + '/edit'">Edit Post</router-link></span>&nbsp;&nbsp;&nbsp;
-                    <span class="delete-post" v-on:click="database.Posts.splice(index, 1)">Delete Post</span>
+                    <!--<span class="delete-post" v-on:click="database.Posts.splice(index, 1)">Delete Post</span>-->
                 </span>
                 </div>
                 <p class="blog-body">{{ blogPost.body }}</p>
@@ -18,7 +18,7 @@
                         <li v-for="(blogComment, index) in blogPost.comments" v-bind:index="index" v-bind:key="blogComment.id">
                             <h4>{{ blogComment.name }} said:</h4>
                             <p style="text-indent: 2em">{{ blogComment.message }}</p>
-                            <span v-if="database.User.length > 0" class="comment-delete">
+                            <span v-if="Users.length > 0" class="comment-delete">
                                 User email: {{ blogComment.email }}<br/>
                                 <span v-on:click="blogPost.comments.splice(index, 1)">Delete Comment</span>
                             </span>
@@ -46,29 +46,36 @@
 
 
 <script>
-  import database from "@/database.js"
-  import PostComment from "@/comment"
+  import UserDatabase from "@/user_database.js"
+  import Axios from "../../node_modules/axios";
 
   export default {
 
     data () {
       return {
-        database: database,
-        blogRouterId : this.$route.params.id,
+        Users: UserDatabase.Users,
+        blogPost: null,
         name: '',
         email: '',
         comment: ''
       }
     },
+    created() {
+      Axios.get('http://localhost:3000/api/posts/', {
+          params: {
+              ID: this.$route.params.id
+          }
+      }).then(res => this.blogPost = res.data);
+    },
     methods: {
-        createPostComment(index) {
-            var lastIndex = database.Posts[index].comments[database.Posts[index].comments.length - 1].id;
-            lastIndex++;
-            database.Posts[index].comments.push(new PostComment(lastIndex, this.name, this.email, this.comment));
-            this.name = '';
-            this.email = '';
-            this.comment = '';
-        }
+        //createPostComment(index) {
+        //    var lastIndex = database.Posts[index].comments[database.Posts[index].comments.length - 1].id;
+        //    lastIndex++;
+        //    database.Posts[index].comments.push(new PostComment(lastIndex, this.name, this.email, this.comment));
+        //    this.name = '';
+        //    this.email = '';
+        //    this.comment = '';
+        //}
     }
 }
 </script>
